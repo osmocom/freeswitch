@@ -1405,12 +1405,13 @@ static int on_hangup(lpwrap_pri_t *spri, lpwrap_pri_event_t event_type, pri_even
 {
 	ftdm_span_t *span = spri->span;
 	ftdm_channel_t *chan = ftdm_span_get_channel(span, pevent->hangup.channel);
-	ftdm_libpri_b_chan_t *chan_priv = chan->call_data;
+	ftdm_libpri_b_chan_t *chan_priv;
 
 	if (!chan) {
 		ftdm_log(FTDM_LOG_CRIT, "-- Hangup on channel %d:%d but it's not in use?\n", ftdm_span_get_id(spri->span), pevent->hangup.channel);
 		return 0;
 	}
+	chan_priv = chan->call_data;
 
 	ftdm_channel_lock(chan);
 
