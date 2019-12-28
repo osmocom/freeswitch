@@ -2446,6 +2446,7 @@ FT_DECLARE(ftdm_caller_data_t *) ftdm_channel_get_caller_data(ftdm_channel_t *ft
 FT_DECLARE(ftdm_channel_t *) ftdm_span_get_channel(const ftdm_span_t *span, uint32_t chanid)
 {
 	ftdm_channel_t *chan;
+	chanid &= 0xffff; /* mask off libpri "ds1_explicit" bit & co */
 	ftdm_mutex_lock(span->mutex);
 	if (chanid == 0 || chanid > span->chan_count) {
 		ftdm_mutex_unlock(span->mutex);
