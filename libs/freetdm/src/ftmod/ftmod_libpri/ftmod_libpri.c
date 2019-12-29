@@ -1964,6 +1964,9 @@ static int on_ring(lpwrap_pri_t *spri, lpwrap_pri_event_t event_type, pri_event 
 		snprintf(caller_data->aniII, 5, "%.2d", pevent->ring.ani2);
 	}
 
+	caller_data->bearer_capability = pevent->ring.ctype >> 3;
+	isdn_data->layer1 = pevent->ring.layer1;
+
 	// scary to trust this pointer, you'd think they would give you a copy of the call data so you own it......
 	/* hurr, this is valid as along as nobody releases the call */
 	chan_priv->call = pevent->ring.call;
